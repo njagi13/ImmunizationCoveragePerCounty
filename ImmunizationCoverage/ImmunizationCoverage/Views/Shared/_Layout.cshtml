@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+            @Scripts.Render("~/bundles/modernizr")
+    
+    
+    <link href="~/App/angular-chart.css" rel="stylesheet" />
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-route.min.js"></script>
+    <script src="~/App/Chart.js"></script>
+    <script src="~/App/angular-chart.js"></script>
+   
     <script src="~/App/app.js"></script>
     <script src="~/App/ImmunizationCoverCtrl.js"></script>
 </head>
@@ -22,13 +28,13 @@
                 </button>
                 @Html.ActionLink("Counties Immunization Coverage", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
+       @*     <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                  
+
                 </ul>
                 @Html.Partial("_LoginPartial")
-            </div>
+            </div>*@
         </div>
     </div>
     <div class="container body-content">

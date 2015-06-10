@@ -59,34 +59,5 @@ namespace ImmunizationCoverage.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to County,2011,2012,2013
-        ///Baringo,62.119093409,69.877672592,64.835414354
-        ///Bomet,57.227700067,42.022996612,58.283932762
-        ///Bungoma,72.049457764,63.30098433,60.500155438
-        ///Busia,125.397188148,170.444758494,117.095900559
-        ///Elgeyo Marakwet,88.877144183,80.047478483,65.921966981
-        ///Embu,90.403367032,87.364958831,96.110769446
-        ///Garissa,213.074498759,124.099330336,129.735052594
-        ///Homabay,100.207160406,88.578211733,80.482946585
-        ///Isiolo,92.134614059,85.60481898,89.590936885
-        ///Kajiado,78.247905647,81.794177246,58.376457003
-        ///Kakamega,77.357 [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string CountyFullImmunizationCoverageRate {
-            get {
-                return ResourceManager.GetString("CountyFullImmunizationCoverageRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string FileCSV {
-            get {
-                return ResourceManager.GetString("FileCSV", resourceCulture);
-            }
-        }
     }
 }
