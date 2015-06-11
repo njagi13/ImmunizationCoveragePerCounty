@@ -5,12 +5,22 @@
 
     <div ng-controller="ImmunizationCoverCtrl">
         <h2>Immunization Coverage Graph</h2>
-
-
-        <div> {{message}}</div>
         <div>
             <canvas id="line" class="chart chart-line" data="data" height="100" labels="labels"
-                    legend="true" series="series" click="onClick"></canvas> 
+                    legend="true" series="series" click="onClick"></canvas>
+        </div>
+        <div>
+            <p>
+                The above chart shows immunization levels of children under 1 year accross the counties in Kenya. 
+            </p>
+            <p>
+                The above chart will be used by county leaders accross the country for evaluation.
+                From above , counties will be able to improve the immunization levels within their borders.
+            </p>
+            <p>
+                <a href="https://data.hdx.rwlabs.org/dataset/fully-immunization-coverage-rate-for-children-under-1-year-per-county-in-kenya-2011-2013"> <b>References here</b></a>
+              
+            </p>
         </div>
     </div>
 </div>

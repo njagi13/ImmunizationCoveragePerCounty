@@ -6,7 +6,7 @@
         $scope.counties = function () {
             var url = '/Home/Getcounties';
             $http.get(url).then(function (res) {
-                debugger;
+                
                 $scope.labels1 = res.data;
                 $scope.labels = $scope.labels1;
                 console.log($scope.alldata);

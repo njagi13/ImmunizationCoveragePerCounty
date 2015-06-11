@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -32,59 +34,81 @@ namespace ImmunizationCoverage.Controllers
         public string GetCounties()
         {
 
-            var baseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-            var path = baseDirectory + "CSVFiles\\CountyFullImmunizationCoverageRate.csv";
+            var csvitems =
+                Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("ImmunizationCoverage.CSVFiles.CountyFullImmunizationCoverageRate.csv");
+            if (csvitems != null)
+                using (var reader = new StreamReader(csvitems))
+                {
 
-            var iop = System.IO.File.ReadAllLines(path).Skip(1).Take(24).Select(line => new { line, columns = line.Split(','), rows = line.Split(';') }).Select(@t => new
-            {
-                County = @t.columns[0],
-            }).ToList();
+                    var listA = new List<string>();
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
 
-            List<string> counties = new List<string>();
-            foreach (var v in iop)
-            {
-                counties.Add(v.County);
-            }
-            var jsonSerialiser = new JavaScriptSerializer();
+                        if (line != null)
+                        {
+                            var values = line.Split(';');
+                            listA.AddRange(values.Select(value => value.Split(',')).Select(x => x[0]));
+                        }
 
-            foreach (var c in counties)
-            {
-                var json = jsonSerialiser.Serialize(c);
-            }
-            var json1 = jsonSerialiser.Serialize(counties);
-            return json1;
+                    }
+                    var counties = listA.Skip(1);
+                    var jsonSerialiser = new JavaScriptSerializer();
+                    foreach (var c in counties)
+                    {
+                        var json = jsonSerialiser.Serialize(c);
+                    }
+                    var json1 = jsonSerialiser.Serialize(counties);
+                    return json1;
+                }
+            return null;
         }
 
 
         public string GetCoverage()
         {
-            var baseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-            var path = baseDirectory + "CSVFiles\\CountyFullImmunizationCoverageRate.csv";
 
-            var iop = System.IO.File.ReadAllLines(path).Skip(1).Select(line => new { line, columns = line.Split(','), rows = line.Split(';') }).Select(@t => new
-            {
-                year1 = @t.columns[1],
-                year2 = @t.columns[2],
-                year3 = @t.columns[3]
-            }).ToList();
+            var csvitems =
+                Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("ImmunizationCoverage.CSVFiles.CountyFullImmunizationCoverageRate.csv");
+            if (csvitems != null)
+                using (var reader = new StreamReader(csvitems))
+                {
 
-            var coverage = new List<List<float>>();
+                    var listA = new List<float>();
+                    var listB = new List<float>();
+                    var listC = new List<float>();
+                    var coverage = new List<List<float>>();
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
 
-            var coverageYr1 = iop.Select(v => float.Parse(v.year1)).ToList();
-            coverage.Add(coverageYr1);
-            var coverageYr2 = iop.Select(v => float.Parse(v.year2)).ToList();
-            coverage.Add(coverageYr2);
-            var coverageYr3 = iop.Select(v => float.Parse(v.year3)).ToList();
-            coverage.Add(coverageYr3);
-            var jsonSerialiser = new JavaScriptSerializer();
-            foreach (var c in coverage)
-            {
-                var json = jsonSerialiser.Serialize(c);
-            }
+                        if (line != null)
+                        {
+                            var values = line.Split(';');
+                            // var values = v1.Skip(1);
+                            listA.AddRange(values.Select(v => v.Split(',')).Select(cols => float.Parse(cols[1])));
+                            listB.AddRange(values.Select(v => v.Split(',')).Select(cols => float.Parse(cols[2])));
+                            listC.AddRange(values.Select(v => v.Split(',')).Select(cols => float.Parse(cols[3])));
+                        }
 
-            var json1 = jsonSerialiser.Serialize(coverage);
-            return json1;
-           
+                    }
+                    //skip header
+
+                    listA.RemoveAt(0);
+                    listB.RemoveAt(0);
+                    listC.RemoveAt(0);
+
+                    coverage.Add(listA);
+                    coverage.Add(listB);
+                    coverage.Add(listC);
+                    var jsonSerialiser = new JavaScriptSerializer();
+                    var json1 = jsonSerialiser.Serialize(coverage);
+                    return json1;
+
+                }
+            return null;
         }
     }
 }
